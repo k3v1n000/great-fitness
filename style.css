@@ -1,3 +1,25 @@
+html {
+  font-size: 25px;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  overflow-x: hidden;
+  padding-top: 65px; /* Igual que el alto de la barra */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variables de color */
 :root {
   --color-primary-dark: #0b264b;
   --color-primary-light: #0066ff;
@@ -6,33 +28,13 @@
   --color-background-dark: #222;
 }
 
-/* Ajuste general de tamaño: sube aquí para "zoom" global */
-html {
-  font-size: 20px; /* Cambia a 21px, 22px... para más zoom */
-}
-
-body {
-  font-family: system-ui, sans-serif;
-  line-height: 1.6;
-  color: var(--color-text-dark);
-  background-color: var(--color-text-light);
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* HEADER */
+/* HEADER (TOP BAR) */
 .top-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+  height: 65px;
   background-color: var(--color-primary-dark);
   z-index: 1000;
   display: flex;
@@ -40,16 +42,42 @@ body {
   align-items: center;
   padding: 10px 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
 }
 
 .logo-left {
-  height: 50px;
+  height: 40px;
   object-fit: contain;
+  width: auto;
+  margin-left: 0; /* Puedes ajustar si quieres más pegado o separado */
 }
 
 .logo-right {
   height: 80px;
   object-fit: contain;
+  width: auto;
+  margin-right: 0; /* Puedes ajustar si quieres más pegado o separado */
+}
+
+@media (max-width: 650px) {
+  .top-bar {
+    height: 55px;
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+  body {
+    padding-top: 55px;
+  }
+  .logo-left {
+    height: 33px;
+    margin-left: 0;
+  }
+  .logo-right {
+    height: 50px;
+    margin-right: 0;
+  }
 }
 
 /* HERO SECTION */
@@ -76,7 +104,6 @@ body {
   overflow: hidden;
   z-index: 0;
 }
-
 .hero.module::before {
   content: "";
   position: absolute;
@@ -84,7 +111,6 @@ body {
   background: rgba(0, 0, 0, 0.25);
   z-index: -1;
 }
-
 .hero-content {
   max-width: 90%;
   opacity: 0;
@@ -94,24 +120,20 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
 .hero-content.show {
   opacity: 1;
   transform: translateY(0);
 }
-
 .hero h1 {
   margin-bottom: 1rem;
   max-width: 90vw;
   word-wrap: break-word;
-  font-size: 3.1rem;
+  font-size: 2.5rem;
 }
-
 .hero p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
 }
-
 .hero .btn {
   background: linear-gradient(135deg, #0066ff, #00c9ff);
   color: white;
@@ -146,13 +168,11 @@ h3 {
   margin-bottom: 1rem;
   line-height: 1.2;
 }
-
 h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
   text-align: center;
 }
-
 h3 {
   font-size: 1.5rem;
 }
@@ -160,7 +180,7 @@ p {
   margin-bottom: 1rem;
 }
 
-/* Botones */
+/* Botones generales */
 .btn,
 .btn-gradient {
   display: inline-block;
@@ -212,6 +232,7 @@ p {
   font-size: 2.5rem;
   margin-bottom: 2.4rem;
   margin-top: 0.7rem;
+  text-align: center;
   line-height: 1.17;
 }
 .box .btn,
@@ -251,6 +272,8 @@ section:nth-of-type(even) {
   margin-bottom: 1.2rem;
   margin-top: 0;
 }
+
+/* Pillars List - Responsive corregido */
 .pillars-list {
   width: 100%;
   display: flex;
@@ -263,6 +286,7 @@ section:nth-of-type(even) {
   padding: 0;
   text-align: center;
   margin-bottom: 2.6rem;
+  flex-wrap: wrap;
 }
 .pillars-list li {
   flex: 1 1 0;
@@ -274,7 +298,9 @@ section:nth-of-type(even) {
   text-align: center;
   margin: 0 4px;
   font-size: 0.98rem;
+  word-break: break-word;
 }
+
 .pillars-list li span[role="img"] {
   font-size: 2.1rem;
   margin-bottom: 0.3rem;
@@ -338,6 +364,7 @@ section:nth-of-type(even) {
 .card {
   flex: 1 1 0;
   min-width: 0;
+  max-width: none;
   min-height: 180px;
   background: linear-gradient(120deg, #7db6f4 40%, #6ea8e3 80%);
   border-radius: 1.1rem;
@@ -437,7 +464,7 @@ footer {
   gap: 1rem;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE MEJORADO */
 @media (max-width: 1200px) {
   #entrenador .box {
     max-width: 900px;
@@ -458,8 +485,17 @@ footer {
   #entrenador h2 {
     font-size: 1.2rem;
   }
+  .pillars-list {
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.2rem;
+  }
   .pillars-list li {
-    max-width: 120px;
+    flex: 1 1 40%;
+    max-width: 180px;
+    min-width: 120px;
+    margin-bottom: 1.2rem;
   }
   .pillars-list h3 {
     font-size: 0.93rem;
@@ -487,12 +523,18 @@ footer {
 }
 @media (max-width: 650px) {
   #entrenador .box {
-    max-width: 95vw;
+    max-width: 98vw;
     padding: 0.5rem 0.1rem 0.6rem 0.1rem;
+  }
+  .pillars-list {
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: stretch;
   }
   .pillars-list li {
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 1rem auto;
   }
 }
 @media (max-width: 500px) {
@@ -504,7 +546,7 @@ footer {
   }
 }
 
-/* Pantallas grandes */
+/* Media Queries pantallas grandes */
 @media (min-width: 600px) {
   h1 {
     font-size: 3.5rem;
@@ -514,6 +556,11 @@ footer {
   }
   .hero p {
     font-size: 1.3rem;
+  }
+  .pillars-list {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 2.5rem;
   }
   .cards-container {
     flex-direction: row;
