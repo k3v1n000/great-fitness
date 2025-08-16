@@ -133,11 +133,20 @@
     </main>
 
     <footer>
-      <p>&copy; 2025 Great Fitness.</p>
-      <a href="#top" class="btn-gradient" style="margin-top: 3rem"
-        >Volver al inicio</a
-      >
-    </footer>
+  <p>&copy; 2025 Great Fitness.</p>
+  <p>Visitas: <span id="visit-counter">—</span></p>
+  <a href="#top" class="btn-gradient" style="margin-top: 3rem">Volver al inicio</a>
+</footer>
+
+<!-- Script del contador -->
+<script>
+  fetch('https://api.countapi.xyz/hit/kevin-nasm-site/visitas')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('visit-counter').innerText = data.value;
+    });
+</script>
+
 
     <script src="script.js"></script>
   </body>
